@@ -24,7 +24,7 @@ def mkt(strike,quantity,direction):
     
     order_payload = {
     'variety':'regular',
-    'exchange':'NFO',
+    'exchange':'NSE',
     'tradingsymbol':strike,
     'transaction_type':direction,
     'order_type':'MARKET',
@@ -36,7 +36,7 @@ def mkt(strike,quantity,direction):
     response = s.post(order_url,data=order_payload)
     print(response.text)
     
-    return response
+    return
 
 #-----------------------------------------------------------> sl-m order function
 
@@ -44,7 +44,7 @@ def slm(strike,quantity,trigger_price,direction):
 
     order_payload = {
     'variety':'regular',
-    'exchange':'NFO',
+    'exchange':'NSE',
     'tradingsymbol':strike,
     'transaction_type':direction,
     'order_type':'SL-M',
@@ -92,7 +92,7 @@ def echo(update: Update, context: CallbackContext):
         trade_data = msg.split(',')
         strike = trade_data[1]
         stop = float(trade_data[2])
-        quantity = multiplier*50
+        quantity = multiplier*1
 
         mkt(strike,quantity,'SELL')
 
