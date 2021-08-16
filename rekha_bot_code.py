@@ -95,12 +95,25 @@ def echo(update: Update, context: CallbackContext):
         quantity = multiplier*1
 
         mkt(strike,quantity,'SELL')
+        
+        writer = open('trade_info.txt','w')
+        writer.write(strike+','+str(quantity))
+        writer.close()
 
         time.sleep(2)
         
         slm(strike,quantity,stop,'BUY')
 
     if 'exit' in msg:
+        
+        reader = open('trade_info.txt','r')
+        trade_info = reader.read()
+        reader.close()
+        
+        trade_info = trade_info.split(',')
+        strike = trade_info[0]
+        quantity = trade_info[1]
+        
         mkt(strike,quantity,'BUY')
 
 updater = Updater(bot_token,use_context=True)
